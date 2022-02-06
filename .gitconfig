@@ -1,0 +1,37 @@
+[user]
+	name = Michael Williams
+	username = mtwilliams
+	email = me@mtwilliams.io
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit --max-count=30
+	fixup = commit --amend --no-edit
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[core]
+	editor = vim
+	ignorecase = true
+	excludesFile = ~/.gitignore
+[pull]
+	# Only fast-forward. Otherwise `git fetch` and merge/rebase manually.
+	ff = only
+[diff]
+	tool = kaleidoscope
+	submodule = diff
+[difftool]
+	prompt = false
+[difftool "kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE
+[merge]
+	tool = kaleidoscope
+[mergetool]
+	prompt = false
+[mergetool "kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
+[mergetool "vscode"]
+	cmd = code --wait $MERGED

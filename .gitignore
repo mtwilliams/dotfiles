@@ -1,0 +1,29 @@
+## Windows
+
+# Explorer config and caches.
+[Dd]esktop.ini
+Thumbs.db
+
+# Pops up on file shares.
+$RECYCLE.BIN/
+
+## Mac
+
+# Finder preferences.
+.DS_Store
+
+## Vim
+
+# Swap
+[._]*.s[a-v][a-z]
+!*.svg
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Temporary
+*~
+
+# Undo
+[._]*.un~

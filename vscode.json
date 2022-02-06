@@ -1,0 +1,61 @@
+{
+  "window.menuBarVisibility": "default",
+
+  "workbench.colorTheme": "Dracula",
+
+  // Disable prompt to choose a language for untitled files.
+  "workbench.editor.untitled.hint": "hidden",
+
+  // Disabled restricted mode. It's so stupid.
+  // https://code.visualstudio.com/docs/editor/workspace-trust
+  "security.workspace.trust.untrustedFiles": "open",
+
+  // Use the new terminal app.
+  "terminal.external.windowsExec": "C:\\Users\\Michael\\AppData\\Local\\Microsoft\\WindowsApps\\wt.exe",
+
+  // Straight forward font choices.
+  "editor.fontFamily": "'SF Mono', Consolas, 'Courier New', monospace",
+  "editor.fontSize": 14,
+  "editor.fontWeight": "normal",
+
+  // Got used to Vim.
+  "editor.cursorStyle": "block",
+  "editor.cursorBlinking": "solid",
+
+  // Tabs suck.
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+
+  // Unix conventions.
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "files.eol": "\n",
+
+  // I'm old school, but do make concessions.
+  "editor.rulers": [80, 120],
+
+  // Mimic terminals.
+  "editor.wordWrapColumn": 80,
+
+  // Always show whitespace; it's important!
+  "editor.renderWhitespace": "all",
+
+  // Mimic Sublime Text minimaps.
+  "editor.minimap.maxColumn": 80,
+  "editor.minimap.renderCharacters": false,
+  "editor.minimap.showSlider": "always",
+
+  // Inline peeks.
+  "editor.definitionLinkOpensInPeek": true,
+
+  // Don't compact folder hierarchies.
+  "explorer.compactFolders": false,
+
+  // Don't confirm operations since they're reversable anyways.
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+
+  // Default to reasonably sane C/C++ standards.
+  "C_Cpp.default.cStandard": "c11",
+  "C_Cpp.default.cppStandard": "c++11"
+}
