@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+
+import argparse
+import sys
+
+ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+INVERSE = {symbol: index for index, symbol in enumerate(ALPHABET)}
+
+def _int_to_base36(integer):
+  result = str()
+  while integer > 0:
+    integer, remainder = divmod(integer, 36)
+    result = ALPHABET[remainder] + result
+  return result or ALPHABET[0]
+
+def _base36_to_int(string):
+  result = 0
+  for symbol in string:
+    result = result * 36 + INVERSE[symbol]
+  return result
+
+def encode(input, output, hex):
+  if hex:
+    integer = int(input.read().strip(), 16)
+  else:
+    integer = int.from_bytes(input.read(), byteorder="big")
+  base36 = _int_to_base36(integer)
+  output.write(base36)
+
+def decode(input, output, hex):
+  base36 = input.read().strip()
+  integer = _base36_to_int(base36)
+  if hex:
+    output.write(f"{integer:x}")
+  else:
+    if integer:
+      binary = integer.to_bytes((integer.bit_length() + 7) // 8, byteorder="big")
+    else:
+      binary = b"\x00"
+    output.write(binary)
+
+def stdin(binary):
+  return sys.stdin.buffer if binary else sys.stdin
+
+def stdout(binary):
+  return sys.stdout.buffer if binary else sys.stdout
+
+def main():
+  parser = argparse.ArgumentParser(description="Base-36 encoder/decoder.", add_help=False)
+  group = parser.add_mutually_exclusive_group(required=True)
+  group.add_argument("-e", "--encode", action="store_true", help="Encode data to base-36.")
+  group.add_argument("-d", "--decode", action="store_true", help="Decode base-36 to data.")
+  parser.add_argument("-x", "--hex", action="store_true", help="Use hexadecimal for input/output.")
+  parser.add_argument("-n", dest="newline", action="store_true", default=False, help="Do not append a newline.")
+  parser.add_argument("--help", action="help", help="Show this help message.")
+  args = parser.parse_args()
+
+  if args.encode:
+    encode(stdin(not args.hex), sys.stdout, args.hex)
+    if args.newline:
+      sys.stdout.write("\n")
+  elif args.decode:
+    decode(sys.stdin, stdout(not args.hex), args.hex)
+    if args.newline and args.hex:
+      sys.stdout.write("\n")
+
+if __name__ == "__main__":
+  main()

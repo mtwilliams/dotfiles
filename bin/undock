@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Invert scroll direction when undocked.
+#
+# This moves content in the direction of finger movement which feels natural.
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool true
+
+# Must explicitly reload preferences.
+sudo killall -hup cfprefsd
+sudo killall -hup Dock
