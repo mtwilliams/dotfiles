@@ -80,8 +80,8 @@ main() {
 
   ## Security
 
-  # Warn before accessing websites insecurely.
-  defaults write com.apple.Safari UseHTTPSOnly -bool true
+  # Prevent accessing websites over HTTP.
+  # defaults write com.apple.Safari UseHTTPSOnly -bool true
 
   # Don't automatically open "safe" files.
   defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
