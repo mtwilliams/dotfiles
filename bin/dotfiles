@@ -1,0 +1,207 @@
+#!/usr/bin/env python3
+
+"""
+Conveniences to make managing dotfiles with GNU Stow easy.
+
+https://www.gnu.org/software/stow/manual/stow.html
+"""
+
+import os
+import shutil
+import subprocess
+import argparse
+from contextlib import contextmanager
+
+HOME = os.path.expanduser("~")
+DOTFILES = os.path.join(HOME, ".dotfiles")
+STOW = os.path.join(DOTFILES, "stow")
+
+SIMULATE = bool(int(os.environ.get("SIMULATE", "0")))
+
+def preflight():
+  """Checks prerequisites and ensure environment is setup."""
+
+  if shutil.which("stow") is None:
+    print("Error: GNU Stow is not installed or not in PATH.")
+    exit(1)
+
+  # Ensure `~/.dotfile/stow` exists.
+  os.makedirs(STOW, exist_ok=True)
+
+def stow(arguments):
+  base = ["-d", STOW, "-t", HOME]
+
+  if SIMULATE:
+    base.append("--simulate")
+
+  return subprocess.run(["stow", *base, *arguments])
+
+def packages():
+  return [p for p in os.listdir(STOW) if os.path.isdir(os.path.join(STOW, p))]
+
+def where(package):
+  return os.path.join(STOW, package)
+
+def add(args):
+  os.makedirs(where(args.package), exist_ok=True)
+
+def remove(args):
+  root = where(args.package)
+
+  if not os.path.exists(root):
+    print(f"Package '{args.package}' does not exist.")
+    exit(1)
+
+  if leave: # FIXME?
+    for item in os.listdir(root):
+      src = os.path.join(root, item)
+      dest = os.path.join(HOME, item)
+      if os.path.islink(dest):
+        with open(src, 'r') as f:
+          content = f.read()
+        with open(dest, 'w') as f:
+          f.write(content)
+      else:
+        if os.path.isdir(src):
+          shutil.copytree(src, dest, dirs_exist_ok=True)
+        else:
+          shutil.copy2(src, dest)
+    print(f"Copied files from '{args.package}' back to home directory.")
+
+  stow(["-D", args.package])
+  shutil.rmtree(root)
+
+  print(f"Removed package '{args.package}' and stopped managing it.")
+
+def migrate(args):
+  root = where(args.package)
+
+  if os.path.exists(root):
+    print(f"Package '{args.package}' already exists!")
+    exit(1)
+  else:
+    os.makedirs(root)
+
+  paths = {}
+
+  # Map paths that will need to be copied.
+  for path in args.paths:
+    # Expand the path just in case it was provided as "~/.file".
+    src = os.path.expanduser(path)
+    if not os.path.isabs(src):
+      src = os.path.join(HOME, src)
+
+    # Make sure files are contained within the home directory.
+    if not path_is_under(HOME, src):
+      printf(f"Path '{src}' is not under the home directory!")
+      exit(1)
+
+    # Resolve relative to the home directory.
+    relative = os.path.relpath(src, HOME)
+    dst = os.path.join(root, relative)
+
+    paths[src] = dst
+
+  # Determine if they exist.
+  missing = [path for path, _ in paths.items() if not os.path.exists(path)]
+
+  # Report any that are missing.
+  if missing:
+    if args.skip:
+      print(f"Some paths do not exist and will be skipped.")
+    else:
+      for path in missing:
+        print(f"Path '{path}' does not exist.")
+      print("One more files does not exist!")
+      exit(1)
+
+  # Copy under `~/.dotfiles/stow/<package>`.
+  for src, dst in paths.items():
+    # Skip if does not exist.
+    if not os.path.exists(src):
+      print(f"Path '{src}' does not exist. Skipping.")
+      continue
+
+    # Support arbitrarily nested files.
+    os.makedirs(os.path.dirname(dst), exist_ok=True)
+  
+    # Copy files and directories.
+    if os.path.isdir(src):
+      shutil.copytree(src, dst, dirs_exist_ok=True)
+    else:
+      shutil.copy2(src, dst)
+
+  # Safe to remove now.
+  for src, _ in paths.items():
+    if os.path.exists(src):
+      if os.path.isdir(src):
+        shutil.rmtree(src)
+      else:
+        os.remove(src)
+
+  stow([args.package])
+
+  print(f"Migrated files to package '{args.package}' and started managing with GNU Stow.")
+
+def path_is_under(parent, child):
+  parent = os.path.abspath(parent)
+  child = os.path.abspath(child)
+  return os.path.commonpath([parent]) == os.path.commonpath([parent, child])
+
+def apply(args):
+  for package in packages():
+    print(f"Applying GNU Stow for '{package}'...")
+    stow(["-R", package])
+
+  print("All packages applied.")
+
+def ls(args):
+  for package in packages():
+    if args.files:
+      root = os.path.join(STOW, package)
+      for root, _, filenames in os.walk(root):
+        for filename in filenames:
+          path = os.path.join(root, filename)
+          relative = os.path.relpath(path, STOW)
+          print(f"{package} {relative}")
+    else:
+      print(package)
+
+@contextmanager
+def subparser(subparsers, name, help, handler, **kwargs):
+  parser = subparsers.add_parser(name, help=help, **kwargs)
+  parser.set_defaults(handler=handler)
+  yield parser
+
+def main():
+  parser = argparse.ArgumentParser(description="Manage dotfiles with GNU Stow.", add_help=False)
+  subparsers = parser.add_subparsers(dest="command")
+
+  with subparser(subparsers, "add", "Add a new package", add) as sp:
+    sp.add_argument("package", help="The name of the package to add.")
+
+  with subparser(subparsers, "remove", "Remove a package", remove, aliases=["rm"]) as sp:
+    sp.add_argument("package", help="The name of the package to remove.")
+    sp.add_argument("--leave", action="store_true", help="Leave files locally when removing.")
+
+  with subparser(subparsers, "migrate", "Migrate files to a package", migrate) as sp:
+    sp.add_argument("package", help="The name of the package to migrate files to.")
+    sp.add_argument("paths", nargs="+", help="The paths of files or directories to migrate.")
+    sp.add_argument("--skip", action="store_true", help="Skip any missing files.")
+
+  with subparser(subparsers, "apply", "Apply all packages with GNU Stow.", apply):
+    pass
+
+  with subparser(subparsers, "list", "List managed packages.", ls) as sp:
+    sp.add_argument("--files", action="store_true", help="List all files managed by GNU Stow.")
+
+  args = parser.parse_args()
+
+  if args.command is None:
+    parser.print_help()
+  else:
+    preflight()
+    args.handler(args)
+
+if __name__ == "__main__":
+  main()

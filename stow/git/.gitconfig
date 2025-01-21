@@ -2,6 +2,7 @@
 	name = Michael Williams
 	username = mtwilliams
 	email = me@mtwilliams.io
+	signingkey = 0AD1996D52C886F5!
 [alias]
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit --max-count=30
 	fixup = commit --amend --no-edit
@@ -35,3 +36,7 @@
 	trustExitCode = true
 [mergetool "vscode"]
 	cmd = code --wait $MERGED
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
