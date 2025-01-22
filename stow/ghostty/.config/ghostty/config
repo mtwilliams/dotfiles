@@ -1,0 +1,14 @@
+theme = Dracula
+
+# Limit scrollback to 8MiB, which is way more than enough.
+scrollback-limit = 8388608
+
+# Permanent block cursor.
+cursor-style = block
+cursor-style-blink = false
+
+# TODO: Keybinds
+# https://ghostty.org/docs/config/reference#keybind
+
+# Automatically quit after the last window is closed.
+quit-after-last-window-closed = true
