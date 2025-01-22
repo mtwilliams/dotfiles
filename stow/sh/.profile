@@ -10,3 +10,5 @@ export OP_GPG_ITEM="op://pys6op3sognebycneijjr6mbku/fctlmayanvvnxubdlm3nzcaafe/P
 
 [[ -r ~/.asdf/asdf.sh ]] && . ~/.asdf/asdf.sh
 [[ -r ~/.cargo/env ]] && . ~/.cargo/env
+
+export PATH="$PATH:$HOME/.dotfiles/bin"
