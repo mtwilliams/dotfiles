@@ -1,7 +1,7 @@
 {
   "window.menuBarVisibility": "default",
 
-  "workbench.colorTheme": "Dracula",
+  "workbench.colorTheme": "Dracula Theme",
 
   // Disable prompt to choose a language for untitled files.
   "workbench.editor.untitled.hint": "hidden",
@@ -35,7 +35,7 @@
   "editor.rulers": [80, 120],
 
   // Mimic terminals.
-  "editor.wordWrapColumn": 80,
+  "editor.wordWrapColumn": 78,
 
   // Always show whitespace; it's important!
   "editor.renderWhitespace": "all",
@@ -57,5 +57,5 @@
 
   // Default to reasonably sane C/C++ standards.
   "C_Cpp.default.cStandard": "c11",
-  "C_Cpp.default.cppStandard": "c++11"
+  "C_Cpp.default.cppStandard": "c++20"
 }
