@@ -21,12 +21,18 @@ unique_device_identifier() {
     | tr '[:upper:]' '[:lower:]'
 }
 
-# Determines if a Mac's form factor.
+# Determines a Mac's form factor.
 laptop_or_desktop() {
   if [[ $(sysctl -n hw.model) == MacBook* ]]; then
     echo "laptop"
   else
-    echo "desktop"
+    # With the introduction of Apple Silicon, `hw.model` no longer aligns with
+    # the marketing names, so these have to be pulled out I/O registry.
+    if [[ $(ioreg -rc IOPlatformDevice -k product-name | awk -F'"' '/"product-name"/ {print $4}') == MacBook* ]]; then
+      echo "laptop"
+    else
+      echo "desktop"
+    fi
   fi
 }
 
