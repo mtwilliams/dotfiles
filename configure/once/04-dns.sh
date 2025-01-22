@@ -14,7 +14,7 @@ main() {
 
     # Fetch lists of domains we want to block.
     "$HOME/.dotfiles/blackhole/fetch.sh"
-    
+
     # Generate a hosts file to block them.
     local HOSTS="$(brew --prefix)/etc/dnsmasq.hosts"
     "$HOME/.dotfiles/blackhole/generate.sh" >$HOSTS

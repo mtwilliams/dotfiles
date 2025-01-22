@@ -7,7 +7,7 @@ description() {
 main() {
   # Restart for changes to take effect.
   killall -q iCal
-  
+
   exit 0
 }
 

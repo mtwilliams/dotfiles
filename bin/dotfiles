@@ -124,7 +124,7 @@ def migrate(args):
 
     # Support arbitrarily nested files.
     os.makedirs(os.path.dirname(dst), exist_ok=True)
-  
+
     # Copy files and directories.
     if os.path.isdir(src):
       shutil.copytree(src, dst, dirs_exist_ok=True)

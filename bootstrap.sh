@@ -9,11 +9,11 @@ echo "You must grant full disk access to your Terminal."
 echo ""
 echo "Verify that the necessary permission has been granted, and if so, continue. Otherwise, grant the permission and restart your Terminal."
 echo ""
-echo "Proceed? (y/N)" 
+echo "Proceed? (y/N)"
 open "x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles"
 read -r CONTINUE
 if [[ $CONTINUE =~ ^([yY][eE][sS]|[yY])$ ]]; then
-  :
+  true
 else
   exit 1
 fi
@@ -62,6 +62,6 @@ brew install make autoconf binutils
 # Install commonly used developer tools.
 brew install openssl curl openssh gnupg git
 
-# We now have an environment that is capable enough to setup centralized configuration. 
+# We now have an environment that is capable enough to setup centralized configuration.
 git clone https://github.com/mtwilliams/dotfiles.git ~/.dotfiles
 . ~/.dotfiles/configure.sh

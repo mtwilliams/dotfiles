@@ -17,7 +17,7 @@ function clean() {
     # Remove full-line comments and empty lines.
     /^[[:space:]]*$/ { next }
     /^[[:space:]]*#/ { next }
-    
+
     # Remove inline comments and trailing whitespace.
     {
       # Remove inline comments.

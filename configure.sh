@@ -22,10 +22,10 @@ case "$OSTYPE" in
       export FLAVOR=unknown
     fi
   ;;
-  
+
   *bsd*)
     export PLATFORM=bsd
-    export FLAVOR=$(uname -s | tr '[:upper:]' '[:lower:]')  
+    export FLAVOR=$(uname -s | tr '[:upper:]' '[:lower:]')
   ;;
 
   *)
@@ -62,7 +62,7 @@ function run() {
   # Execute the script if it has not been run, or if forced.
   if [[ "$ALWAYS" == "true" || ! -f "$FLAGS/$NAME" ]]; then
     echo "* $DESCRIPTION"
-    
+
     # Capture and process script output.
     if OUTPUT=$(bash "$SCRIPT" 2>&1); then
       [[ "$ALWAYS" != "true" ]] && touch "$FLAGS/$NAME"
@@ -72,7 +72,7 @@ function run() {
       fi
     else
       # Indent output with 4 spaces.
-      echo "$OUTPUT" | sed 's/^/    /'  
+      echo "$OUTPUT" | sed 's/^/    /'
       echo ""
       echo "Failed to perform this step."
       exit 1
@@ -106,11 +106,11 @@ sudo --validate
 # Maintain `sudo` privilege for the duration of the script.
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-# Run scripts under `~/.dotfiles/configure/once` (executed based on flags). 
+# Run scripts under `~/.dotfiles/configure/once` (executed based on flags).
 run_all_under "$SCRIPTS/once" "false"
 
 # Run scripts under `~/.dotfiles/configure/$PLATFORM` (always executed).
 run_all_under "$SCRIPTS/$PLATFORM" "true"
 
-# Run scripts under `~/.dotfiles/configure` (always executed). 
+# Run scripts under `~/.dotfiles/configure` (always executed).
 run_all_under "$SCRIPTS" "true"

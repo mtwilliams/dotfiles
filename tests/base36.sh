@@ -9,7 +9,7 @@ test() {
 
   # Run the command and capture output.
   output=$(eval $command)
-  
+
   # Compare output with expected.
   if [[ "$output" == "$expected" ]]; then
     echo "[PASS] $test"
