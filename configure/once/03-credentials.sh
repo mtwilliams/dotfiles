@@ -13,6 +13,15 @@ main() {
   # Remind me to add the key to Github.
   echo "Make sure you add $HOME/.ssh/id_ed25519.pub to Github."
 
+  # Install support for Yubikeys.
+  if [[ "$PLATFORM" == "mac" ]]; then
+    brew install --cask yubico-authenticator
+    brew install --cask yubico-yubikey-manager
+    brew install ykman
+  else
+    :
+  fi
+
   exit 0
 }
 
