@@ -103,3 +103,6 @@
 
 [tag]
 	gpgsign = true
+
+[push]
+	autoSetupRemote = true
