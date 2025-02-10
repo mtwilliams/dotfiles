@@ -2,7 +2,8 @@
 	name = Michael Williams
 	username = mtwilliams
 	email = me@mtwilliams.io
-	signingkey = 0AD1996D52C886F5!
+	signingkey = 7D333918B7FC616F7730CED101C2BABFB1D49A56!
+
 [alias]
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit --max-count=30
 	fixup = commit --amend --no-edit
