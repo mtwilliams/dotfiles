@@ -4,7 +4,7 @@
 #
 # Use as an alternative `pinentry-program` and set `OP_GPG_ITEM` to the URI.
 
-COMMAND="op read $OP_GPG_ITEM"
+COMMAND="op --account my.1password.com read $OP_GPG_ITEM"
 
 echo "OK"
 while read cmd rest; do
