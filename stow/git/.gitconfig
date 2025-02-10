@@ -46,6 +46,14 @@
 	logtree = log --graph --oneline --decorate --all
 	lgt = logtree
 
+	# Lists authors by number of changes.
+	authors = ! ~/.dotfiles/git/authors.sh
+
+	# Lists files by number of changes.
+	#
+	# https://github.com/GitAlias/gitalias/tree/main/doc/git-churn
+	churn = ! ~/.dotfiles/git/churn.sh
+
 	# Remove merged branches.
 	cleanup = ! ~/.dotfiles/git/cleanup.sh
 
