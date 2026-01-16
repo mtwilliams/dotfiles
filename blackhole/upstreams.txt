@@ -1,0 +1,12 @@
+# These are used by dnsmasq for resolving non-blocked domains.
+
+# Cloudflare (privacy-focused, fast)
+1.1.1.1
+1.0.0.1
+
+# Quad9 (malware blocking)
+9.9.9.9
+
+# Google (reliable fallback)
+8.8.8.8
+8.8.4.4

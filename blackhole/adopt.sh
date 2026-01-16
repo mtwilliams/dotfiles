@@ -1,10 +1,12 @@
 #!/bin/bash
 
-# Discover all networks.
-SERVICES=$(networksetup -listallnetworkservices | grep 'Wi-Fi\|Ethernet\|USB')
+# Discover physical network interfaces (Wi-Fi, Ethernet, Thunderbolt).
+# Excludes virtual interfaces like Tailscale, VPN, Bluetooth PAN.
+SERVICES=$(networksetup -listallnetworkservices | grep -E 'Wi-Fi|Ethernet|Thunderbolt')
 
 # Point them to dnsmasq.
 while read -r SERVICE; do
+  [[ -z "$SERVICE" ]] && continue
   networksetup -setdnsservers "$SERVICE" 127.0.0.1
 done <<< "$SERVICES"
 

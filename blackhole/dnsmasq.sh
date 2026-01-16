@@ -18,7 +18,7 @@ echo "addn-hosts=$(brew --prefix)/etc/dnsmasq.hosts"
 echo ""
 
 echo "# Forward to upstreams."
-"$HOME/.dotfiles/blackhole/upstreams.sh" | sed 's/^/server=/'
+awk '!/^[[:space:]]*$/ && !/^[[:space:]]*#/' "$HOME/.dotfiles/blackhole/upstreams.txt" | sed 's/^/server=/'
 echo ""
 
 echo "# Don't cache so dnsmasq acts purely as a forwarding resolver."

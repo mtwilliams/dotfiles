@@ -52,11 +52,11 @@ function parse() {
       # Replace "[.]" with "." to "deneutralize" URLs.
       LINE=$(echo "$LINE" | sed 's/\[.\]/./g')
 
+      # Remove schemaless prefixes like "//" (must happen before path stripping).
+      LINE=$(echo "$LINE" | sed 's#^//##')
+
       # Remove trailing paths after a "/" or "?" to isolate the hostname.
       LINE=$(echo "$LINE" | sed 's#[/?].*##')
-
-      # Remove schemaless prefixes like "//".
-      LINE=$(echo "$LINE" | sed 's#^//##')
 
       # If the processed line is a valid hostname, output it.
       if [[ "$LINE" =~ ^${HOSTNAME}$ ]]; then

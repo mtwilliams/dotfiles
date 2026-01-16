@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.dotfiles.blackhole</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>-c</string>
+        <string>$HOME/.dotfiles/blackhole/fetch.sh &amp;&amp; $HOME/.dotfiles/blackhole/generate.sh > $(brew --prefix)/etc/dnsmasq.hosts &amp;&amp; brew services restart dnsmasq</string>
+    </array>
+
+    <!-- Run every Sunday at 3:00 AM -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Weekday</key>
+        <integer>0</integer>
+        <key>Hour</key>
+        <integer>3</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>~/Library/Logs/blackhole.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>~/Library/Logs/blackhole.log</string>
+
+    <key>RunAtLoad</key>
+    <false/>
+</dict>
+</plist>

@@ -25,6 +25,10 @@ main() {
 
     # Configure the machine to use it.
     sudo "$HOME/.dotfiles/blackhole/adopt.sh"
+
+    # Install weekly update job.
+    cp "$HOME/.dotfiles/blackhole/com.dotfiles.blackhole.plist" ~/Library/LaunchAgents/
+    launchctl load ~/Library/LaunchAgents/com.dotfiles.blackhole.plist
   else
     exit 1
   fi
