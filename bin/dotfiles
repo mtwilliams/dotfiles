@@ -52,7 +52,7 @@ def remove(args):
     print(f"Package '{args.package}' does not exist.")
     exit(1)
 
-  if leave: # FIXME?
+  if args.leave:
     for item in os.listdir(root):
       src = os.path.join(root, item)
       dest = os.path.join(HOME, item)
