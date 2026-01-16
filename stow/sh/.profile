@@ -6,6 +6,7 @@ fi
 # `pinentry-program` program is used to fetch it from 1Password CLI.
 #
 # See `extra/pinentry.sh`.
+export OP_GPG_ACCOUNT="my.1password.com"
 export OP_GPG_ITEM="op://pys6op3sognebycneijjr6mbku/fctlmayanvvnxubdlm3nzcaafe/Passphrase"
 
 [[ -r ~/.local/bin/env ]] && . ~/.local/bin/env
