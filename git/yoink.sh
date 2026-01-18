@@ -18,7 +18,7 @@ git branch "$TARGET"
 
 if [ -n "$UPSTREAM" ]; then
   # Move the current branch back to match upstream.
-  git reset --soft $UPSTREAM
+  git reset --soft "$UPSTREAM"
 else
   # Move the current branch back one commit.
   git reset --soft HEAD~

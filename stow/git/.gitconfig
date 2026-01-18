@@ -26,19 +26,28 @@
 	# Lists all local branches that are behind their upstreams.
 	stale = ! ~/.dotfiles/git/stale.sh
 
-	# Grabs the latest changes to the current branch from upstream and shows whathas changed.
+	# Lists all local branches that are ahead of their upstreams.
+	ahead = ! ~/.dotfiles/git/ahead.sh
+
+	# Lists branches sorted by most recent commit.
+	branches = branch --sort=-committerdate --format='%(refname:short) %(committerdate:relative)'
+
+	# Grabs the latest changes to the current branch from upstream and shows what has changed.
 	refresh = ! ~/.dotfiles/git/refresh.sh
+
+	# Shows the staged diff.
+	staged = diff --cached
 
 	# Unstages any staged changes.
 	unstage = reset HEAD --
 
-	# Undoes the previous commit and pull its changes into the work tree.
-	uncommit = reset --soft HEAD^
+	# Undoes the previous commit and pulls its changes into the work tree.
+	uncommit = reset --soft HEAD~1
 
 	# Amends changes to the previous commit without modifying the message.
 	fixup = commit --amend --no-edit
 
-	# Determines where two branches diverge.
+	# Moves commits that diverge from upstream to a new branch.
 	yoink = ! ~/.dotfiles/git/yoink.sh
 
 	# Shorter and easier to read log.
@@ -68,6 +77,9 @@
 	ignorecase = true
 	excludesFile = ~/.gitignore
 
+[init]
+	defaultBranch = master
+
 [pull]
 	# Only fast-forward. Otherwise `git fetch` and merge/rebase manually.
 	ff = only
@@ -83,7 +95,7 @@
 	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 
 [difftool "vscode"]
-	cmd = code --wait --diff $LOCAL $REMOTE
+	cmd = code --wait --diff \"$LOCAL\" \"$REMOTE\"
 
 [merge]
 	tool = kaleidoscope
@@ -96,13 +108,19 @@
 	trustExitCode = true
 
 [mergetool "vscode"]
-	cmd = code --wait $MERGED
+	cmd = code --wait \"$MERGED\"
 
 [commit]
 	gpgsign = true
 
 [tag]
 	gpgsign = true
+
+[rebase]
+	autoStash = true
+
+[fetch]
+	prune = true
 
 [push]
 	autoSetupRemote = true

@@ -9,7 +9,7 @@ if [ -z "$DEFAULT" ]; then
 fi
 
 # List merged branches, excluding the default branch and the current branch.
-MERGED=$(git branch --merged | grep -v '^\*' | grep -v "$DEFAULT")
+MERGED=$(git branch --merged | grep -v '^\*' | grep -v "^[[:space:]]*$DEFAULT$")
 
 if [ -z "$MERGED" ]; then
   echo "No merged branches to delete."

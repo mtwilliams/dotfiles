@@ -14,7 +14,7 @@ git fetch --quiet
 echo "Attempting to fast-forward $BRANCH to $UPSTREAM..."
 if git merge --ff-only "$UPSTREAM"; then
   BEHIND=$(git rev-list --count "$COMMIT..$UPSTREAM" 2>/dev/null);
-  if [ $BEHIND -gt 0 ]; then
+  if [ "$BEHIND" -gt 0 ]; then
     echo "$BRANCH successfully fast-forwarded to $UPSTREAM."
     echo "Showing changes between $BRANCH and $UPSTREAM:"
     git log --oneline --graph "$COMMIT..$UPSTREAM"
