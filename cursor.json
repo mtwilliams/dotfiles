@@ -1,7 +1,5 @@
 {
-  "window.menuBarVisibility": "default",
-
-  "workbench.colorTheme": "Dracula Theme",
+  "workbench.colorTheme": "Ayu Mirage Bordered",
 
   // Disable prompt to choose a language for untitled files.
   "workbench.editor.untitled.hint": "hidden",
@@ -10,8 +8,11 @@
   // https://code.visualstudio.com/docs/editor/workspace-trust
   "security.workspace.trust.untrustedFiles": "open",
 
-  // Use the new terminal app.
-  "terminal.external.windowsExec": "C:\\Users\\Michael\\AppData\\Local\\Microsoft\\WindowsApps\\wt.exe",
+  // Use the new terminal app on Windows.
+  "terminal.external.windowsExec": "%LOCALAPPDATA%\\Microsoft\\WindowsApps\\wt.exe",
+
+  // Use Ghostty as the external terminal app on macOS.
+  "terminal.external.osxExec": "/Applications/Ghostty.app/Contents/MacOS/ghostty",
 
   // Straight forward font choices.
   "editor.fontFamily": "'SF Mono', Consolas, 'Courier New', monospace",
@@ -57,5 +58,5 @@
 
   // Default to reasonably sane C/C++ standards.
   "C_Cpp.default.cStandard": "c11",
-  "C_Cpp.default.cppStandard": "c++20"
+  "C_Cpp.default.cppStandard": "c++20",
 }

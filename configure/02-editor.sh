@@ -1,7 +1,7 @@
 #!/bin/bash
 
 description() {
-  echo "Configure Visual Studio Code"
+  echo "Configure Cursor"
 }
 
 main() {
@@ -10,46 +10,46 @@ main() {
   ## Config
 
   if [[ "$PLATFORM" == "mac" ]]; then
-    SETTINGS="$HOME/Library/Application Support/Code/User/settings.json"
+    SETTINGS="$HOME/Library/Application Support/Cursor/User/settings.json"
   else
-    SETTINGS="$HOME/.config/Code/User/settings.json"
+    SETTINGS="$HOME/.config/Cursor/User/settings.json"
 
     # Ensure the directory exists.
     mkdir -p $(dirname "$SETTINGS")
   fi
 
   rm "$SETTINGS" 2>/dev/null
-  ln -s "$HOME/.dotfiles/vscode.json" "$SETTINGS"
+  ln -s "$HOME/.dotfiles/cursor.json" "$SETTINGS"
 
   ## Extensions
 
-  # Install theme for VSCode.
-  code --install-extension dracula-theme.theme-dracula
+  # Install theme for Cursor.
+  cursor --install-extension teabyii.ayu
 
   # Install GitLens.
-  code --install-extension eamodio.gitlens
+  cursor --install-extension eamodio.gitlens
 
   # Install Github related extensions.
-  # code --install-extension GitHub.copilot-chat
-  # code --install-extension GitHub.vscode-github-actions
-  # code --install-extension GitHub.vscode-pull-request-github
+  # cursor --install-extension GitHub.copilot-chat
+  # cursor --install-extension GitHub.vscode-github-actions
+  # cursor --install-extension GitHub.vscode-pull-request-github
 
   # C/C++
-  code --install-extension ms-vscode.cpptools
+  cursor --install-extension ms-vscode.cpptools
 
   # Rust
-  code --install-extension rust-lang.rust-analyzer
+  cursor --install-extension rust-lang.rust-analyzer
 
   # Python
-  code --install-extension ms-python.python
-  code --install-extension ms-python.debugpy
+  cursor --install-extension ms-python.python
+  cursor --install-extension ms-python.debugpy
 
   # Erlang/Elixir
-  code --install-extension pgourlain.erlang
-  code --install-extension JakeBecker.elixir-ls
+  cursor --install-extension pgourlain.erlang
+  cursor --install-extension JakeBecker.elixir-ls
 
   # Docker
-  code --install-extension ms-azuretools.vscode-docker
+  cursor --install-extension ms-azuretools.vscode-docker
 
   exit 0
 }
