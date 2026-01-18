@@ -1,0 +1,25 @@
+# Print locals and globals.
+alias pl pp list(locals().keys())
+alias pg pp list(globals().keys())
+
+# Toggle sticky mode.
+alias st sticky
+
+# Show return value after a function call.
+alias rv retval
+
+# Show 5 lines of context around the current line.
+alias ctx list . 5
+
+# Print an object's attributes and methods.
+alias pi pp dir(%1)
+
+# Drop into IPython from pdb then exit with Ctrl+D to return to pdb.
+import IPython
+from traitlets.config import get_config
+
+cfg = get_config()
+cfg.InteractiveShellEmbed.colors = "Linux"
+cfg.InteractiveShellEmbed.confirm_exit = False
+
+alias ipy IPython.embed(config=cfg)
