@@ -1,4 +1,16 @@
-theme = Dracula
+theme = Ayu Mirage
+
+# Play nicely with shell.
+shell-integration = zsh
+shell-integration-features = cursor,sudo,title,ssh-env
+
+# Always open to ~/.
+working-directory = home
+
+# Open to 175x45.
+window-width = 175
+window-height = 45
+window-step-resize = true
 
 # Limit scrollback to 8MiB, which is way more than enough.
 scrollback-limit = 8388608
