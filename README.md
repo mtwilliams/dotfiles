@@ -33,8 +33,6 @@ If you already have the repo cloned, re-run configuration with:
 ```
 ~/.dotfiles/
 ├── bin/              # Scripts added to PATH
-│   ├── dock          # Switch to docked mode (external keyboard)
-│   ├── undock        # Switch to laptop mode
 │   └── dotfiles      # GNU Stow wrapper for managing dotfiles
 ├── blackhole/        # Local DNS-based ad blocking
 ├── configure/        # Configuration scripts
@@ -46,6 +44,14 @@ If you already have the repo cloned, re-run configuration with:
 ├── stow/             # Dotfile packages managed by GNU Stow
 └── wallpapers/       # Desktop backgrounds
 ```
+
+## Shell
+
+I use an explicit chain so `bash` and `zsh` share the same tool
+setup without duplication:
+- `~/.zshenv` → `~/.profile` (zsh, all shells)
+- `~/.bashrc` → `~/.profile` (bash, interactive shells)
+- `~/.bash_profile` → `~/.bashrc` (bash, login shells)
 
 ## Configuration Scripts
 

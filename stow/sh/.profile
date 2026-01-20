@@ -1,22 +1,4 @@
 export LANG='en_US.UTF-8'
-export LC_ALL='en_US.UTF-8'
-
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
-
-# Passphrase for GPG is stored inside a 1Password vault, and an alternative
-# `pinentry-program` program is used to fetch it from 1Password CLI.
-#
-# See `extra/pinentry.sh`.
-export OP_GPG_ACCOUNT="my.1password.com"
-export OP_GPG_ITEM="op://pys6op3sognebycneijjr6mbku/fctlmayanvvnxubdlm3nzcaafe/Passphrase"
-
-[[ -r ~/.local/bin/env ]] && . ~/.local/bin/env
-[[ -r ~/.cargo/env ]] && . ~/.cargo/env
-
-export PATH="$PATH:$HOME/.dotfiles/bin"
-
 export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less'
@@ -29,3 +11,27 @@ export LESS_TERMCAP_me=$'\E[0m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_se=$'\E[0m'
 export PYTHONSTARTUP="$HOME/.pythonrc"
+
+# Passphrase for GPG is stored inside a 1Password vault, and an alternative
+# `pinentry-program` program is used to fetch it from 1Password CLI.
+#
+# See `extra/pinentry.sh`.
+export OP_GPG_ACCOUNT="my.1password.com"
+export OP_GPG_ITEM="op://pys6op3sognebycneijjr6mbku/fctlmayanvvnxubdlm3nzcaafe/Passphrase"
+
+# Toolchain.
+[ -r ~/.local/bin/env ] && . ~/.local/bin/env
+if [ -n "${ZSH_VERSION:-}" ]; then
+  [ -r ~/.local/bin/mise ] && eval "$(~/.local/bin/mise activate zsh)"
+elif [ -n "${BASH_VERSION:-}" ]; then
+  [ -r ~/.local/bin/mise ] && eval "$(~/.local/bin/mise activate bash)"
+fi
+[ -r ~/.cargo/env ] && . ~/.cargo/env
+
+# Homebrew.
+if [ "$(uname -s)" = "Darwin" ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# Custom scripts.
+export PATH="$PATH:$HOME/.dotfiles/bin"
