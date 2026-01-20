@@ -2,11 +2,30 @@
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 COMMIT=$(git log -1 --format=%H)
-UPSTREAM=$(git rev-parse --abbrev-ref --symbolic-full-name "@{u}" 2>/dev/null)
 
-if [ -z "$UPSTREAM" ]; then
-  echo "No upstream branch set for $BRANCH. Use \`git branch --set-upstream-to\` to configure it."
-  exit 1
+if [ -n "$1" ]; then
+  # Try to get upstream for the argument as a local branch.
+  UPSTREAM=$(git rev-parse --abbrev-ref --symbolic-full-name "$1@{u}" 2>/dev/null)
+
+  if [ -n "$UPSTREAM" ]; then
+    # It's a local branch with an upstream.
+    :
+  else
+    # Try to use it directly as a reference.
+    if git rev-parse --verify "$1" >/dev/null 2>&1; then
+      UPSTREAM="$1"
+    else
+      echo "Could not resolve $1 as a local branch with upstream or as a remote branch reference."
+      exit 1
+    fi
+  fi
+else
+  # Use the upstream branch of the current branch if not specified.
+  UPSTREAM=$(git rev-parse --abbrev-ref --symbolic-full-name "@{u}" 2>/dev/null)
+  if [ -z "$UPSTREAM" ]; then
+    echo "No upstream branch set for $BRANCH. Use \`git branch --set-upstream-to\` to configure it."
+    exit 1
+  fi
 fi
 
 git fetch --quiet
