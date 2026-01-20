@@ -38,6 +38,9 @@
 	# Shows the staged diff.
 	staged = diff --cached
 
+	# Compares a branch against the default branch.
+	review = ! ~/.dotfiles/git/review.sh
+
 	# Unstages any staged changes.
 	unstage = reset HEAD --
 
