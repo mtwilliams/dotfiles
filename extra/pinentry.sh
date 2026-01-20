@@ -6,9 +6,12 @@
 
 echo "OK"
 while read cmd rest; do
-  echo "cmd=$cmd rest=$rest" >&2
   case "$cmd" in
     \#*)
+      echo "OK"
+      ;;
+    SETDESC|SETPROMPT)
+      # Accept prompt/description updates from GPG.
       echo "OK"
       ;;
     GETPIN)
@@ -18,7 +21,7 @@ while read cmd rest; do
       fi
 
       if [ -z "$PASSPHRASE" ]; then
-        PASSPHRASE=$(op --account $OP_GPG_ACCOUNT read "$OP_GPG_ITEM" 2>/dev/null)
+        PASSPHRASE=$(op --account "$OP_GPG_ACCOUNT" read "$OP_GPG_ITEM" 2>/dev/null)
         if [ $? -ne 0 ] || [ -z "$PASSPHRASE" ]; then
           echo "ERR 83886179 Failed to retrieve passphrase from 1Password"
           continue
