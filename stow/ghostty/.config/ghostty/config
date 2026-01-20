@@ -12,8 +12,8 @@ window-width = 175
 window-height = 45
 window-step-resize = true
 
-# Limit scrollback to 8MiB, which is way more than enough.
-scrollback-limit = 8388608
+# Limit scrollback to 32MiB, which is way more than enough.
+scrollback-limit = 33554432
 
 # Permanent block cursor.
 cursor-style = block
