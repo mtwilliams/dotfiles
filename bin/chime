@@ -1,0 +1,21 @@
+#!/bin/bash
+
+play() {
+  afplay "/System/Library/Sounds/$1.aiff"
+}
+ 
+input=$(cat)
+
+case $(echo "$input" | jq -r '.hook_event_name // empty') in
+  Notification)
+    # Skip idle prompts (waiting for input)
+    [[ $(echo "$input" | jq -r '.notification_type') == "idle_prompt" ]] && exit 0
+    play "Sosumi"
+    ;;
+  Stop)
+    play "Bottle"
+    ;;
+  SubagentStop)
+    play "Pop"
+    ;;
+esac
