@@ -7,8 +7,8 @@ for BRANCH in $(git for-each-ref --format="%(refname:short)" refs/heads/); do
   if [ -z "$UPSTREAM" ]; then
     continue
   fi
-  BEHIND=$(git rev-list --count "$BRANCH..$UPSTREAM" 2>/dev/null);
-  if [ "$BEHIND" -gt 0 ]; then
+  BEHIND=$(git rev-list --count "$BRANCH..$UPSTREAM" 2>/dev/null)
+  if [ -n "$BEHIND" ] && [ "$BEHIND" -gt 0 ]; then
     echo "$BRANCH"
   fi
 done
