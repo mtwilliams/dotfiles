@@ -104,7 +104,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.dotfiles/bin/chime"
+            "command": "~/.dotfiles/extra/chime"
           }
         ]
       }
@@ -115,7 +115,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.dotfiles/bin/chime"
+            "command": "~/.dotfiles/extra/chime"
           }
         ]
       }
@@ -126,7 +126,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.dotfiles/bin/chime"
+            "command": "~/.dotfiles/extra/chime"
           }
         ]
       }

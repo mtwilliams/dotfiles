@@ -1,9 +1,9 @@
 #!/bin/bash
 
 play() {
-  afplay "/System/Library/Sounds/$1.aiff"
+  afplay "/System/Library/Sounds/$1.aiff" &
 }
- 
+
 input=$(cat)
 
 case $(echo "$input" | jq -r '.hook_event_name // empty') in
