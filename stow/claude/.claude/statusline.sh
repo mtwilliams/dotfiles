@@ -126,16 +126,18 @@ git_pr() {
 MODEL=$(echo "$input" | jq -r '.model.display_name')
 PROJECT_DIR=$(echo "$input" | jq -r '.workspace.project_dir // .workspace.current_dir')
 WORKSPACE=${PROJECT_DIR##*/}
-PCT=$(echo "$input" | jq -r '.context_window.used_percentage // 0' | cut -d. -f1)
-TOTAL_INPUT_TOKENS=$(echo "$input" | jq -r '.context_window.total_input_tokens // 0')
-TOTAL_OUTPUT_TOKENS=$(echo "$input" | jq -r '.context_window.total_output_tokens // 0')
 CONTEXT_WINDOW_SIZE=$(echo "$input" | jq -r '.context_window.context_window_size // 200000')
+PCT=$(echo "$input" | jq -r '(.context_window.used_percentage // 0) | floor')
 
-# Calculate the total number of tokens used.
-TOTAL=$((TOTAL_INPUT_TOKENS + TOTAL_OUTPUT_TOKENS))
+# Extract current usage token counts.
+CURRENT_INPUT=$(echo "$input" | jq -r '.context_window.current_usage.input_tokens // 0')
+CURRENT_CACHE_CREATE=$(echo "$input" | jq -r '.context_window.current_usage.cache_creation_input_tokens // 0')
+CURRENT_CACHE_READ=$(echo "$input" | jq -r '.context_window.current_usage.cache_read_input_tokens // 0')
+CURRENT_OUTPUT=$(echo "$input" | jq -r '.context_window.current_usage.output_tokens // 0')
+CURRENT_TOTAL=$((CURRENT_INPUT + CURRENT_CACHE_CREATE + CURRENT_CACHE_READ + CURRENT_OUTPUT))
 
-# Format the total number of tokens used and the maximum number of tokens.
-TOKENS_USED_HUMAN=$(human "$TOTAL")
+# Format the tokens used and the context window size.
+TOKENS_USED_HUMAN=$(human "$CURRENT_TOTAL")
 TOKENS_MAX_HUMAN=$(human "$CONTEXT_WINDOW_SIZE")
 
 # Determine the color of the context bar based on the percentage of tokens used.
