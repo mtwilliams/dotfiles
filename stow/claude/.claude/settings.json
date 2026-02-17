@@ -10,7 +10,7 @@
   },
   "permissions": {
     "allow": [
-      "Bash(* --help *)",
+      "Bash(* --help)",
       "Bash(* --version)",
       "Bash(bc:*)",
       "Bash(date:*)",
@@ -122,6 +122,10 @@
       "Read(~/Library/Keychains/**)",
       "Read(~/.docker/**)",
       "Read(~/.kube/**)",
+      "Read(~/.npmrc)",
+      "Read(~/.env)",
+      "Read(~/.env.*)",
+      "Read(~/.config/op/**)",
       "Glob(~/.aws/**)",
       "Glob(~/.config/gcloud/**)",
       "Glob(~/.azure/**)",
@@ -132,6 +136,10 @@
       "Glob(~/Library/Keychains/**)",
       "Glob(~/.docker/**)",
       "Glob(~/.kube/**)",
+      "Glob(~/.npmrc)",
+      "Glob(~/.env)",
+      "Glob(~/.env.*)",
+      "Glob(~/.config/op/**)",
       "Grep(~/.aws/**)",
       "Grep(~/.config/gcloud/**)",
       "Grep(~/.azure/**)",
@@ -141,7 +149,11 @@
       "Grep(~/.gnupg/**)",
       "Grep(~/Library/Keychains/**)",
       "Grep(~/.docker/**)",
-      "Grep(~/.kube/**)"
+      "Grep(~/.kube/**)",
+      "Grep(~/.npmrc)",
+      "Grep(~/.env)",
+      "Grep(~/.env.*)",
+      "Grep(~/.config/op/**)"
     ]
   },
   "hooks": {
