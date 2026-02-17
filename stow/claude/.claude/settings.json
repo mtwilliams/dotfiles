@@ -125,6 +125,11 @@
       "Read(~/.env)",
       "Read(~/.env.*)",
       "Read(~/.config/op/**)",
+      "Read(~/.config/1Password/**)",
+      "Read(~/.terraform.d/**)",
+      "Read(~/.cargo/credentials*)",
+      "Read(~/Library/Application Support/Code/User/globalStorage/**)",
+      "Read(~/Library/Application Support/Cursor/User/globalStorage/**)",
       "Glob(~/.aws/**)",
       "Glob(~/.config/gcloud/**)",
       "Glob(~/.azure/**)",
@@ -139,6 +144,11 @@
       "Glob(~/.env)",
       "Glob(~/.env.*)",
       "Glob(~/.config/op/**)",
+      "Glob(~/.config/1Password/**)",
+      "Glob(~/.terraform.d/**)",
+      "Glob(~/.cargo/credentials*)",
+      "Glob(~/Library/Application Support/Code/User/globalStorage/**)",
+      "Glob(~/Library/Application Support/Cursor/User/globalStorage/**)",
       "Grep(~/.aws/**)",
       "Grep(~/.config/gcloud/**)",
       "Grep(~/.azure/**)",
@@ -152,7 +162,12 @@
       "Grep(~/.npmrc)",
       "Grep(~/.env)",
       "Grep(~/.env.*)",
-      "Grep(~/.config/op/**)"
+      "Grep(~/.config/op/**)",
+      "Grep(~/.config/1Password/**)",
+      "Grep(~/.terraform.d/**)",
+      "Grep(~/.cargo/credentials*)",
+      "Grep(~/Library/Application Support/Code/User/globalStorage/**)",
+      "Grep(~/Library/Application Support/Cursor/User/globalStorage/**)"
     ]
   },
   "hooks": {
