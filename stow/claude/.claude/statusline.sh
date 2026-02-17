@@ -52,7 +52,7 @@ human() {
 
 # Check if a cache key is stale or missing.
 stale() {
-  local file="/tmp/claude-statusline-${1}"
+  local file="/tmp/claude-code-statusline-${1}"
   [ ! -f "$file" ] && return 0
   local modified
   modified=$(stat -f %m "$file" 2>/dev/null || stat -c %Y "$file" 2>/dev/null || echo 0)
